@@ -17,9 +17,10 @@
 #include <stdint.h>
 #include <string>
 
-#include "json/json_spirit_reader_template.h"
-#include "json/json_spirit_utils.h"
-#include "json/json_spirit_writer_template.h"
+#include <boost/function.hpp>
+
+#include "univalue/univalue.h"
+
 
 class CBlockIndex;
 class CNetAddr;
@@ -63,16 +64,15 @@ bool RPCIsInWarmup(std::string* statusOut);
  * the right number of arguments are passed, just that any passed are the correct type.
  * Use like:  RPCTypeCheck(params, boost::assign::list_of(str_type)(int_type)(obj_type));
  */
-void RPCTypeCheck(const json_spirit::Array& params,
-    const std::list<json_spirit::Value_type>& typesExpected,
-    bool fAllowNull = false);
+void RPCTypeCheck(const UniValue& params,
+                  const std::list<UniValue::VType>& typesExpected, bool fAllowNull=false);
+
 /**
  * Check for expected keys/value types in an Object.
- * Use like: RPCTypeCheck(object, boost::assign::map_list_of("name", str_type)("value", int_type));
+ * Use like: RPCTypeCheckObj(object, boost::assign::map_list_of("name", str_type)("value", int_type));
  */
-void RPCTypeCheck(const json_spirit::Object& o,
-    const std::map<std::string, json_spirit::Value_type>& typesExpected,
-    bool fAllowNull = false);
+void RPCTypeCheckObj(const UniValue& o,
+                  const std::map<std::string, UniValue::VType>& typesExpected, bool fAllowNull=false);
 
 /**
  * Run func nSeconds from now. Uses boost deadline timers.
@@ -83,7 +83,7 @@ void RPCRunLater(const std::string& name, boost::function<void(void)> func, int6
 //! Convert boost::asio address to CNetAddr
 extern CNetAddr BoostAsioToCNetAddr(boost::asio::ip::address address);
 
-typedef json_spirit::Value (*rpcfn_type)(const json_spirit::Array& params, bool fHelp);
+typedef UniValue(*rpcfn_type)(const UniValue& params, bool fHelp);
 
 class CRPCCommand
 {
@@ -112,11 +112,11 @@ public:
     /**
      * Execute a method.
      * @param method   Method to execute
-     * @param params   Array of arguments (JSON objects)
+     * @param params   UniValue Array of arguments (JSON objects)
      * @returns Result of the call.
-     * @throws an exception (json_spirit::Value) when an error happens.
+     * @throws an exception (UniValue) when an error happens.
      */
-    json_spirit::Value execute(const std::string& method, const json_spirit::Array& params) const;
+    UniValue execute(const std::string &method, const UniValue &params) const;
 
     /**
     * Returns a list of registered commands
@@ -131,19 +131,19 @@ extern const CRPCTable tableRPC;
  * Utilities: convert hex-encoded Values
  * (throws error if not hex).
  */
-extern uint256 ParseHashV(const json_spirit::Value& v, std::string strName);
-extern uint256 ParseHashO(const json_spirit::Object& o, std::string strKey);
-extern std::vector<unsigned char> ParseHexV(const json_spirit::Value& v, std::string strName);
-extern std::vector<unsigned char> ParseHexO(const json_spirit::Object& o, std::string strKey);
-extern int ParseInt(const json_spirit::Object& o, std::string strKey);
-extern bool ParseBool(const json_spirit::Object& o, std::string strKey);
+extern uint256 ParseHashV(const UniValue& v, std::string strName);
+extern uint256 ParseHashO(const UniValue& o, std::string strKey);
+extern std::vector<unsigned char> ParseHexV(const UniValue& v, std::string strName);
+extern std::vector<unsigned char> ParseHexO(const UniValue& o, std::string strKey);
+extern int ParseInt(const UniValue& o, std::string strKey);
+extern bool ParseBool(const UniValue& o, std::string strKey);
 
 extern void InitRPCMining();
 extern void ShutdownRPCMining();
 
 extern int64_t nWalletUnlockTime;
-extern CAmount AmountFromValue(const json_spirit::Value& value);
-extern json_spirit::Value ValueFromAmount(const CAmount& amount);
+extern CAmount AmountFromValue(const UniValue& value);
+extern UniValue ValueFromAmount(const CAmount& amount);
 extern double GetDifficulty(const CBlockIndex* blockindex = NULL);
 extern std::string HelpRequiringPassphrase();
 extern std::string HelpExampleCli(std::string methodname, std::string args);
@@ -155,12 +155,17 @@ extern UniValue getconnectioncount(const UniValue& params, bool fHelp); // in rp
 extern UniValue getpeerinfo(const UniValue& params, bool fHelp);
 extern UniValue ping(const UniValue& params, bool fHelp);
 extern UniValue addnode(const UniValue& params, bool fHelp);
+<<<<<<< HEAD
 extern UniValue disconnectnode(const UniValue& params, bool fHelp);
 extern UniValue getaddednodeinfo(const UniValue& params, bool fHelp);
 extern UniValue getnettotals(const UniValue& params, bool fHelp);
 extern UniValue setban(const UniValue& params, bool fHelp);
 extern UniValue listbanned(const UniValue& params, bool fHelp);
 extern UniValue clearbanned(const UniValue& params, bool fHelp);
+=======
+extern UniValue getaddednodeinfo(const UniValue& params, bool fHelp);
+extern UniValue getnettotals(const UniValue& params, bool fHelp);
+>>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
 
 extern UniValue dumpprivkey(const UniValue& params, bool fHelp); // in rpcdump.cpp
 extern UniValue importprivkey(const UniValue& params, bool fHelp);
