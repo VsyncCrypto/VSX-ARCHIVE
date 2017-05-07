@@ -14,10 +14,8 @@
 #include <iostream>
 
 #include <boost/test/unit_test.hpp>
-#include "json/json_spirit_reader_template.h"
-#include "json/json_spirit_utils.h"
-#include "json/json_spirit_writer_template.h"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 using namespace json_spirit;
 extern Array read_json(const std::string& jsondata);
@@ -26,6 +24,11 @@ extern Array read_json(const std::string& jsondata);
 
 extern UniValue read_json(const std::string& jsondata);
 >>>>>>> 81651b980... [Univalue] add univalue over subtree
+=======
+#include "univalue/univalue.h"
+
+extern UniValue read_json(const std::string& jsondata);
+>>>>>>> 631fcb811... [Tests] Update test suite to use new UniValue
 
 // Old script.cpp SignatureHash function
 uint256 static SignatureHashOld(CScript scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType)
@@ -171,12 +174,11 @@ BOOST_AUTO_TEST_CASE(sighash_test)
 // Goal: check that SignatureHash generates correct hash
 BOOST_AUTO_TEST_CASE(sighash_from_data)
 {
-    Array tests = read_json(std::string(json_tests::sighash, json_tests::sighash + sizeof(json_tests::sighash)));
+    UniValue tests = read_json(std::string(json_tests::sighash, json_tests::sighash + sizeof(json_tests::sighash)));
 
-    BOOST_FOREACH(Value& tv, tests)
-    {
-        Array test = tv.get_array();
-        std::string strTest = write_string(tv, false);
+    for (unsigned int idx = 0; idx < tests.size(); idx++) {
+        UniValue test = tests[idx];
+        std::string strTest = test.write();
         if (test.size() < 1) // Allow for extra stuff (useful for comments)
         {
             BOOST_ERROR("Bad test: " << strTest);
