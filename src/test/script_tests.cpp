@@ -31,9 +31,14 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/foreach.hpp>
 #include <boost/test/unit_test.hpp>
+<<<<<<< HEAD
 #include "json/json_spirit_reader_template.h"
 #include "json/json_spirit_utils.h"
 #include "json/json_spirit_writer_template.h"
+=======
+
+#include <univalue.h>
+>>>>>>> 81651b980... [Univalue] add univalue over subtree
 
 using namespace std;
 using namespace json_spirit;

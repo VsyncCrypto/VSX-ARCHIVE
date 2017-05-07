@@ -20,7 +20,12 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/assign/list_of.hpp>
+<<<<<<< HEAD
 #include "json/json_spirit_writer_template.h"
+=======
+
+#include <univalue.h>
+>>>>>>> 81651b980... [Univalue] add univalue over subtree
 
 using namespace std;
 using namespace json_spirit;

@@ -18,8 +18,14 @@
 #include "json/json_spirit_utils.h"
 #include "json/json_spirit_writer_template.h"
 
+<<<<<<< HEAD
 using namespace json_spirit;
 extern Array read_json(const std::string& jsondata);
+=======
+#include <univalue.h>
+
+extern UniValue read_json(const std::string& jsondata);
+>>>>>>> 81651b980... [Univalue] add univalue over subtree
 
 // Old script.cpp SignatureHash function
 uint256 static SignatureHashOld(CScript scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType)
