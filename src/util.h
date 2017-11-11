@@ -205,6 +205,7 @@ void SetThreadPriority(int nPriority);
 void RenameThread(const char* name);
 
 /**
+<<<<<<< HEAD
  * Standard wrapper for do-something-forever thread functions.
  * "Forever" really means until the thread is interrupted.
  * Use it like:
@@ -237,6 +238,8 @@ void LoopForever(const char* name, Callable func, int64_t msecs)
 }
 
 /**
+=======
+>>>>>>> df5fc411e... Introduce CScheduler lightweight task scheduler
  * .. and a wrapper that just calls func once
  */
 template <typename Callable>
