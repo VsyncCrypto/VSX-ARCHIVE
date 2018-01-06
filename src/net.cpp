@@ -500,6 +500,7 @@ void CNode::ClearBanned()
         setBannedIsDirty = true;
     }
     DumpBanlist(); // store banlist to Disk
+    uiInterface.BannedListChanged();
 }
 
 bool CNode::IsBanned(CNetAddr ip)
@@ -560,6 +561,7 @@ void CNode::Ban(const CSubNet& subNet, const BanReason &banReason, int64_t banti
         else
             return;
     }
+    uiInterface.BannedListChanged();
     {
         LOCK(cs_vNodes);
         BOOST_FOREACH(CNode* pnode, vNodes) {
@@ -585,6 +587,7 @@ bool CNode::Unban(const CSubNet &subNet)
             return false;
         setBannedIsDirty = true;
     }
+    uiInterface.BannedListChanged();
     DumpBanlist(); //store banlist to disk immediately
     return true;
 }
@@ -606,6 +609,7 @@ void CNode::SweepBanned()
 {
     int64_t now = GetTime();
 
+    bool notifyUI = false;
     {
         LOCK(cs_setBanned);
         banmap_t::iterator it = setBanned.begin();
@@ -617,12 +621,16 @@ void CNode::SweepBanned()
             {
                 setBanned.erase(it++);
                 setBannedIsDirty = true;
+                notifyUI = true;
                 LogPrint("net", "%s: Removed banned node ip/subnet from banlist.dat: %s\n", __func__, subNet.ToString());
             }
             else
                 ++it;
         }
     }
+    // update UI
+    if(notifyUI) {
+        uiInterface.BannedListChanged();
     }
 }
 

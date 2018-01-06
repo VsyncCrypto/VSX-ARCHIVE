@@ -101,10 +101,16 @@ public:
 
     /** New block has been accepted */
     boost::signals2::signal<void(const uint256& hash)> NotifyBlockTip;
+<<<<<<< HEAD
     
     /** New transaction has been added to the mempool */
     boost::signals2::signal<void(const uint256& hash)> NotifyTransaction;
     
+=======
+
+    /** Banlist did change. */
+    boost::signals2::signal<void (void)> BannedListChanged;
+>>>>>>> a60301a02... Introduce and hook up the bantablemodel
 };
 
 extern CClientUIInterface uiInterface;
