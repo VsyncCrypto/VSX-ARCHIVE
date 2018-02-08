@@ -29,7 +29,17 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
+<<<<<<< HEAD
   <string>Vsync-Qt</string>
+=======
+  <string>PIVX-Qt</string>
+  
+  <key>CFBundleName</key>
+  <string>PIVX-Qt</string>
+
+  <key>LSHasLocalizedDisplayName</key>
+  <true/>
+>>>>>>> 4b3ad12bd... mac: update macdeployqtplus and Info.plist.in
 
   <key>CFBundleIdentifier</key>
   <string>io.vsync.Vsync-Qt</string>
