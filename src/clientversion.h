@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2017 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,6 +6,7 @@
 #define BITCOIN_CLIENTVERSION_H
 
 #if defined(HAVE_CONFIG_H)
+<<<<<<< HEAD
 #include "config/vsync-config.h"
 #else
 
@@ -28,7 +29,15 @@
  */
 #define COPYRIGHT_YEAR 2019
 
+=======
+#include "config/pivx-config.h"
+>>>>>>> a629d3831... build: Deduplicate version numbers
 #endif //HAVE_CONFIG_H
+
+// Check that required client information is defined
+#if !defined(CLIENT_VERSION_MAJOR) || !defined(CLIENT_VERSION_MINOR) || !defined(CLIENT_VERSION_REVISION) || !defined(CLIENT_VERSION_BUILD) || !defined(CLIENT_VERSION_IS_RELEASE) || !defined(COPYRIGHT_YEAR)
+#error Client version information missing: version is not defined by pivx-config.h or in any other way
+#endif
 
 /**
  * Converts the parameter X to a string after macro replacement on X has been performed.
