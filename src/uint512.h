@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 // Copyright (c) 2019 The Vsync Core developers
+=======
+// Copyright (c) 2017-2018 The PIVX developers
+>>>>>>> 6839f3b11... [Crypto] Switch from openssl to secp256k1 for consensus
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#pragma once
+#ifndef PIVX_UINT512_H
+#define PIVX_UINT512_H
+
 #include "arith_uint256.h"
 #include "uint256.h"
 
@@ -39,3 +45,5 @@ inline uint512 uint512S(const char* str)
     rv.SetHex(str);
     return rv;
 }
+
+#endif // PIVX_UINT512_H
