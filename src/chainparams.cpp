@@ -261,7 +261,7 @@ public:
         fMiningRequiresPeers = true;
         fAllowMinDifficultyBlocks = true;
         fDefaultConsistencyChecks = false;
-        fRequireStandard = false;
+        fRequireStandard = true;
         fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = true;
         nPoolMaxTransactions = 2;
