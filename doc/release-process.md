@@ -100,6 +100,7 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 ### Build and sign Vsync Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
+<<<<<<< HEAD
     ./bin/gbuild --memory 3000 --commit vsync=v${VERSION} ../vsync/contrib/gitian-descriptors/gitian-linux.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../vsync/contrib/gitian-descriptors/gitian-linux.yml
     mv build/out/vsync-*.tar.gz build/out/src/vsync-*.tar.gz ../
@@ -117,6 +118,25 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
     ./bin/gbuild --memory 3000 --commit vsync=v${VERSION} ../vsync/contrib/gitian-descriptors/gitian-aarch64.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../vsync/contrib/gitian-descriptors/gitian-aarch64.yml
     mv build/out/vsync-*.tar.gz build/out/src/vsync-*.tar.gz ../
+=======
+    ./bin/gbuild --memory 3000 --commit pivx=v${VERSION} ../pivx/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../pivx/contrib/gitian-descriptors/gitian-linux.yml
+    mv build/out/pivx-*.tar.gz build/out/src/pivx-*.tar.gz ../
+
+    ./bin/gbuild --memory 3000 --commit pivx=v${VERSION} ../pivx/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../pivx/contrib/gitian-descriptors/gitian-win.yml
+    mv build/out/pivx-*-win-unsigned.tar.gz inputs/pivx-win-unsigned.tar.gz
+    mv build/out/pivx-*.zip build/out/pivx-*.exe ../
+
+    ./bin/gbuild --memory 3000 --commit pivx=v${VERSION} ../pivx/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../pivx/contrib/gitian-descriptors/gitian-osx.yml
+    mv build/out/pivx-*-osx-unsigned.tar.gz inputs/pivx-osx-unsigned.tar.gz
+    mv build/out/pivx-*.tar.gz build/out/pivx-*.dmg ../
+
+    ./bin/gbuild --memory 3000 --commit pivx=v${VERSION} ../pivx/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../pivx/contrib/gitian-descriptors/gitian-aarch64.yml
+    mv build/out/pivx-*.tar.gz build/out/src/pivx-*.tar.gz ../
+>>>>>>> a810714d0... [Doc] Change aarch assert sign output folder
     popd
 
 Build output expected:
