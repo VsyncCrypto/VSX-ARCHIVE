@@ -4452,6 +4452,17 @@ void CWallet::ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored)
     }
 }
 
+<<<<<<< HEAD
+=======
+string CWallet::GetUniqueWalletBackupName(bool fzpivAuto) const
+{
+    stringstream ssDateTime;
+    std::string strWalletBackupName = strprintf("%s", DateTimeStrFormat(".%Y-%m-%d-%H-%M", GetTime()));
+    ssDateTime << strWalletBackupName;
+
+    return strprintf("wallet%s.dat%s", fzpivAuto ? "-autozpivbackup" : "", DateTimeStrFormat(".%Y-%m-%d-%H-%M", GetTime()));
+}
+>>>>>>> da3a6a595... [Build] Remove unnecessary BOOST dependency
 
 void CWallet::ZVSXBackupWallet()
 {
