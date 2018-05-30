@@ -53,6 +53,12 @@
         <file alias="browse">res/icons/browse.png</file>
         <file alias="staking_active">res/icons/staking_active.png</file>
         <file alias="staking_inactive">res/icons/staking_inactive.png</file>
+<<<<<<< HEAD:src/qt/vsync.qrc
+=======
+        <file alias="automint_active">res/icons/automint_active.png</file>
+        <file alias="automint_inactive">res/icons/automint_inactive.png</file>
+        <file alias="onion">res/icons/onion.png</file>
+>>>>>>> 162b57cca... [Qt] Add Tor service icon to status bar:src/qt/pivx.qrc
     </qresource>
     <qresource prefix="/css">
         <file alias="default">res/css/default.css</file>
