@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The Vsync developers
+// Copyright (c) 2017-2019 The Vsync developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -4275,6 +4275,54 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
     }
 
     int nHeight = pindex->nHeight;
+	
+	    if (block.IsProofOfStake()) {
+        LOCK(cs_main);
+
+        CCoinsViewCache coins(pcoinsTip);
+
+        if (!coins.HaveInputs(block.vtx[1])) {
+            // the inputs are spent at the chain tip so we should look at the recently spent outputs
+
+            for (CTxIn in : block.vtx[1].vin) {
+                auto it = mapStakeSpent.find(in.prevout);
+                if (it == mapStakeSpent.end()) {
+                    return false;
+                }
+                if (it->second < pindexPrev->nHeight) {
+                    return false;
+                }
+            }
+        }
+
+        // if this is on a fork
+        if (!chainActive.Contains(pindexPrev) && pindexPrev != NULL) {
+            // start at the block we're adding on to
+            CBlockIndex *last = pindexPrev;
+
+            // while that block is not on the main chain
+            while (!chainActive.Contains(last) && last != NULL) {
+                CBlock bl;
+                ReadBlockFromDisk(bl, last);
+                // loop through every spent input from said block
+                for (CTransaction t : bl.vtx) {
+                    for (CTxIn in: t.vin) {
+                        // loop through every spent input in the staking transaction of the new block
+                        for (CTxIn stakeIn : block.vtx[1].vin) {
+                            // if they spend the same input
+                            if (stakeIn.prevout == in.prevout) {
+                                // reject the block
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                // go to the parent block
+                last = last->pprev;
+            }
+        }
+    }
 
     // Write block to history file
     try {
