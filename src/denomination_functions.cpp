@@ -7,7 +7,7 @@
  * @license    This project is released under the MIT license.
  **/
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2018 The Vsync developers
+// Copyright (c) 2017-2019 The Vsync developers
 
 #include "denomination_functions.h"
 
