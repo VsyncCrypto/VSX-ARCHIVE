@@ -2620,7 +2620,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                     coins->vout.resize(out.n + 1);
                 coins->vout[out.n] = undo.txout;
 				
-				// erase the spent input
+		// erase the spent input
                 mapStakeSpent.erase(out);
             }
         }
