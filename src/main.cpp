@@ -65,6 +65,13 @@ CCriticalSection cs_main;
 BlockMap mapBlockIndex;
 map<uint256, uint256> mapProofOfStake;
 set<pair<COutPoint, unsigned int> > setStakeSeen;
+
+// maps any spent outputs in the past maxreorgdepth blocks to the height it was spent
+// this means for incoming blocks, we can check that their stake output was not spent before
+// the incoming block tried to use it as a staking input. We can also prevent block spam
+// attacks because then we can check that either the staking input is available in the current
+// active chain, or the staking input was spent in the past 100 blocks after the height
+// of the incoming block.
 map<COutPoint, int> mapStakeSpent;
 map<unsigned int, unsigned int> mapHashedBlocks;
 CChain chainActive;
@@ -3099,7 +3106,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     
     // add new entries
     for (const CTransaction tx: block.vtx) {
-        if (tx.IsCoinBase())
+        if (tx.IsCoinBase() || tx.IsZerocoinSpend())
             continue;
         for (const CTxIn in: tx.vin) {
             LogPrint("map", "mapStakeSpent: Insert %s | %u\n", in.prevout.ToString(), pindex->nHeight);
@@ -3107,6 +3114,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         }
     }
 
+    
     // delete old entries
     for (auto it = mapStakeSpent.begin(); it != mapStakeSpent.end();) {
         if (it->second < pindex->nHeight - Params().MaxReorganizationDepth()) {
