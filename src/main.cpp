@@ -4309,7 +4309,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
 
     int nHeight = pindex->nHeight;
 	
-	    if (block.IsProofOfStake()) {
+    if (block.IsProofOfStake()) {
         LOCK(cs_main);
 
         CCoinsViewCache coins(pcoinsTip);
@@ -4356,6 +4356,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
             }
         }
     }
+
 
     // Write block to history file
     try {
