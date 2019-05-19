@@ -4651,7 +4651,7 @@ CBlockIndex* InsertBlockIndex(uint256 hash)
     return pindexNew;
 }
 
-bool static LoadBlockIndexDB()
+bool LoadBlockIndex(string& strError)
 {
     if (!pblocktree->LoadBlockIndexGuts())
         return false;
@@ -4918,16 +4918,16 @@ void UnloadBlockIndex()
     pindexBestInvalid = NULL;
 }
 
-bool LoadBlockIndex()
+bool LoadBlockIndex(string& strError)
 {
     // Load block index from databases
-    if (!fReindex && !LoadBlockIndexDB())
+    if (!fReindex && !LoadBlockIndexDB(strError))
         return false;
     return true;
 }
 
 
-bool LoadBlockIndex(string& strError)
+bool InitBlockIndex()
 {
     LOCK(cs_main);
     // Check whether we're already initialized
