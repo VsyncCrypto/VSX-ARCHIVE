@@ -4927,7 +4927,7 @@ bool LoadBlockIndex()
 }
 
 
-bool InitBlockIndex()
+bool LoadBlockIndex(string& strError)
 {
     LOCK(cs_main);
     // Check whether we're already initialized
