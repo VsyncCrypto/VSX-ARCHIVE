@@ -4651,7 +4651,7 @@ CBlockIndex* InsertBlockIndex(uint256 hash)
     return pindexNew;
 }
 
-bool LoadBlockIndex(string& strError)
+bool static LoadBlockIndex(string& strError)
 {
     if (!pblocktree->LoadBlockIndexGuts())
         return false;
