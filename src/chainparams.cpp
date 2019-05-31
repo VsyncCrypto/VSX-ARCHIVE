@@ -152,16 +152,18 @@ public:
         assert(hashGenesisBlock == uint256("0x00000a47e5f67b18cc1bd58c9e50b5295370cc36df1245a2cd07bf6bb2486e72"));
         assert(genesis.hashMerkleRoot == uint256("0x55e07427d0ca8579ca7296908f464699df9a54782d28bda012656c9d33a3a3c4"));
 		
-		vSeeds.push_back(CDNSSeedData("vsyncseed.vsync.pw", "vsyncseed.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node.vsync.pw", "node.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node1.vsync.pw", "node1.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node2.vsync.pw", "node2.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node3.vsync.pw", "node3.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node4.vsync.pw", "node4.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node5.vsync.pw", "node5.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node6.vsync.pw", "node6.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node7.vsync.pw", "node7.vsync.pw"));
-		vSeeds.push_back(CDNSSeedData("node8.vsync.pw", "node8.vsync.pw"));
+		vSeeds.push_back(CDNSSeedData("vsyncseed.vsync.io", "vsyncseed.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node.vsync.io", "node.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node1.vsync.io", "node1.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node2.vsync.io", "node2.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node3.vsync.io", "node3.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node4.vsync.io", "node4.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node5.vsync.io", "node5.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node6.vsync.io", "node6.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node7.vsync.io", "node7.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node8.vsync.io", "node8.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node9.vsync.io", "node9.vsync.io"));
+		vSeeds.push_back(CDNSSeedData("node10.vsync.io", "node10.vsync.io"));
 
 		
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 70);

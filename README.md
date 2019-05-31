@@ -6,7 +6,7 @@ VSYNC is an open source crypto-currency focused on fast private transactions wit
 - Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftX_.
 - Decentralized blockchain voting utilizing Masternode technology to form a DAO. The blockchain will distribute monthly treasury funds based on successful proposals submitted by the community and voted on by the DAO.
 
-More information at [VSYNC.pw](http://www.VSYNC.pw) Visit our ANN thread at [BitcoinTalk](https://bitcointalk.org/index.php?topic=2133048.0)
+More information at [vsync.io](http://www.vsync.io) Visit our ANN thread at [BitcoinTalk](https://bitcointalk.org/index.php?topic=2133048.0)
 
 ### Coin Specs
 <table>
