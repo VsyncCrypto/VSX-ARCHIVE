@@ -3117,8 +3117,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         	if (tx.IsCoinBase() || tx.IsZerocoinSpend())
             	continue;
         	for (const CTxIn in: tx.vin) {
-            	LogPrint("map", "mapStakeSpent: Insert %s | %u\n", in.prevout.ToString(), pindex->nHeight);
-            	mapStakeSpent.insert(std::make_pair(in.prevout, pindex->nHeight));
+            		LogPrint("map", "mapStakeSpent: Insert %s | %u\n", in.prevout.ToString(), pindex->nHeight);
+            		mapStakeSpent.insert(std::make_pair(in.prevout, pindex->nHeight));
         	}
     	}
 
