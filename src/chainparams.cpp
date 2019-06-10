@@ -124,6 +124,7 @@ public:
 		nMaxMoneyOut = 10000000000 * COIN;
         /** Height or Time Based Activations **/
         nLastPOWBlock = 259200;
+		nMinStakeInput = 500 * COIN;  /* min stake amount */
         nModifierUpdateBlock = 1;
 		
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
@@ -234,6 +235,7 @@ public:
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
+		nMinStakeInput = 500 * COIN;  /* min stake amount */
         nZerocoinStartHeight = 201576;
         nBlockEnforceInvalidUTXO = 9902850; //Start enforcing the invalid UTXO's
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
@@ -301,6 +303,7 @@ public:
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
         hashGenesisBlock = genesis.GetHash();
+		nMinStakeInput = 5 * COIN;  /* min stake amount */
         nDefaultPort = 51476;
         //assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
