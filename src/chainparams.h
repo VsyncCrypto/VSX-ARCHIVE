@@ -138,6 +138,7 @@ protected:
     int nMaturity;
     int nModifierUpdateBlock;
     CAmount nMaxMoneyOut;
+	CAmount nMinStakeInput;
     int nMinerThreads;
     std::vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
