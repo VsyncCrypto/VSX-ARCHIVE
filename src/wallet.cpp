@@ -2589,7 +2589,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         int64_t nStakePile = pcoin.first->vout[pcoin.second].nValue;
         if ( nStakePile < Params().MinStakeInput() ) {
             // don't spam the log
-            if ( fDebug || GetBoolArg("-printcoinstake", false) )
+            if (fDebug && GetBoolArg("-printcoinstake", false))
                 LogPrintf("CreateCoinStake() : min input violation, nStakePile = %d minStakeInput = %d\n", nStakePile, Params().MinStakeInput() );
             continue;
         }
