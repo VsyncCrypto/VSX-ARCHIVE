@@ -1,7 +1,7 @@
 VSYNC Core integration/staging repository (Verson 3.8.6.4)
 =====================================
 
-VSYNC is an open source crypto-currency focused on fast private transactions with low transaction fees & environmental footprint.  It utilizes a custom Proof of Stake protocol for securing its network. The goal of VSYNC is to achieve a decentralized sustainable crypto currency with near instant full-time private transactions, fair governance and community intelligence.
+VSYNC (VSX) is an open source crypto-currency focused on fast private transactions with low transaction fees & environmental footprint.  It utilizes a custom Proof of Stake protocol for securing its network. The goal of VSYNC is to achieve a decentralized sustainable crypto currency with near instant full-time private transactions, fair governance and community intelligence.
 - Anonymized transactions using the _Zerocoin Protocol_
 - Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftX_.
 - Decentralized blockchain voting utilizing Masternode technology to form a DAO. The blockchain will distribute monthly treasury funds based on successful proposals submitted by the community and voted on by the DAO.
