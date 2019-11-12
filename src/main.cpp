@@ -2222,7 +2222,52 @@ int64_t GetBlockValue(int nHeight)
 
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
-    int64_t ret = blockValue / 10 * 7;
+    int64_t ret = blockValue;
+    if (nHeight <= Params().LAST_POW_BLOCK() ) {
+		ret = blockValue * 0;
+    } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= 1050000) {
+		ret = blockValue * 0.70;
+    } else if (nHeight > 1050000 && nHeight <= 1100000) {
+		ret = blockValue * 0.71;
+    } else if (nHeight > 1100000 && nHeight <= 1150000) {
+		ret = blockValue * 0.72;
+    } else if (nHeight > 1150000 && nHeight <= 1200000) {
+		ret = blockValue * 0.73;
+	} else if (nHeight > 1200000 && nHeight <= 1250000) {
+		ret = blockValue * 0.74;
+    } else if (nHeight > 1250000 && nHeight <= 1300000) {
+		ret = blockValue * 0.75;
+    } else if (nHeight > 1300000 && nHeight <= 1350000) {
+		ret = blockValue * 0.76;
+	} else if (nHeight > 1350000 && nHeight <= 1400000) {
+		ret = blockValue * 0.77;
+    } else if (nHeight > 1400000 && nHeight <= 1450000) {
+		ret = blockValue * 0.78;
+    } else if (nHeight > 1450000 && nHeight <= 1500000) {
+		ret = blockValue * 0.79;
+	} else if (nHeight > 1500000 && nHeight <= 1550000) {
+		ret = blockValue * 0.80;
+    } else if (nHeight > 1550000 && nHeight <= 1600000) {
+		ret = blockValue * 0.81;
+    } else if (nHeight > 1600000 && nHeight <= 1650000) {
+		ret = blockValue * 0.82;
+	} else if (nHeight > 1650000 && nHeight <= 1700000) {
+		ret = blockValue * 0.83;
+    } else if (nHeight > 1700000 && nHeight <= 1750000) {
+		ret = blockValue * 0.84;
+    } else if (nHeight > 1750000 && nHeight <= 1800000) {
+		ret = blockValue * 0.85;
+	} else if (nHeight > 1800000 && nHeight <= 1850000) {
+		ret = blockValue * 0.86;
+    } else if (nHeight > 1850000 && nHeight <= 1900000) {
+		ret = blockValue * 0.87;
+    } else if (nHeight > 1900000 && nHeight <= 1950000) {
+		ret = blockValue * 0.88;
+	} else if (nHeight > 1950000 && nHeight <= 2000000) {
+		ret = blockValue * 0.89;
+    } else if (nHeight > 2000000) {
+		ret = blockValue * 0.90; }
+
     return ret;
 }
 
