@@ -2,7 +2,7 @@
 name: "vsync-aarch64-3.8.6.5"
 enable_cache: true
 suites:
-- "xenial"
+- "bionic"
 architectures:
 - "amd64"
 packages:
