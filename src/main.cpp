@@ -2212,8 +2212,10 @@ int64_t GetBlockValue(int nHeight)
         nSubsidy = 19 * COIN;
     } else if (nHeight <= 647999 && nHeight >= 604800) {
         nSubsidy = 11 * COIN;
-    } else if (nHeight >= 648000) {
+    } else if (nHeight <= 1049999 && nHeight >= 648000)) {
         nSubsidy = 3 * COIN;
+	} else if (nHeight >= 1050000)) {
+        nSubsidy = 5 * COIN;
     } else {
         nSubsidy = 0 * COIN;
     }
@@ -2222,7 +2224,52 @@ int64_t GetBlockValue(int nHeight)
 
 int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount)
 {
-    int64_t ret = blockValue / 10 * 7;
+    int64_t ret = blockValue;
+    if (nHeight <= Params().LAST_POW_BLOCK() ) {
+		ret = blockValue * 0;
+    } else if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= 1050000) {
+		ret = blockValue * 0.70;
+    } else if (nHeight > 1050000 && nHeight <= 1100000) {
+		ret = blockValue * 0.71;
+    } else if (nHeight > 1100000 && nHeight <= 1150000) {
+		ret = blockValue * 0.72;
+    } else if (nHeight > 1150000 && nHeight <= 1200000) {
+		ret = blockValue * 0.73;
+	} else if (nHeight > 1200000 && nHeight <= 1250000) {
+		ret = blockValue * 0.74;
+    } else if (nHeight > 1250000 && nHeight <= 1300000) {
+		ret = blockValue * 0.75;
+    } else if (nHeight > 1300000 && nHeight <= 1350000) {
+		ret = blockValue * 0.76;
+	} else if (nHeight > 1350000 && nHeight <= 1400000) {
+		ret = blockValue * 0.77;
+    } else if (nHeight > 1400000 && nHeight <= 1450000) {
+		ret = blockValue * 0.78;
+    } else if (nHeight > 1450000 && nHeight <= 1500000) {
+		ret = blockValue * 0.79;
+	} else if (nHeight > 1500000 && nHeight <= 1550000) {
+		ret = blockValue * 0.80;
+    } else if (nHeight > 1550000 && nHeight <= 1600000) {
+		ret = blockValue * 0.81;
+    } else if (nHeight > 1600000 && nHeight <= 1650000) {
+		ret = blockValue * 0.82;
+	} else if (nHeight > 1650000 && nHeight <= 1700000) {
+		ret = blockValue * 0.83;
+    } else if (nHeight > 1700000 && nHeight <= 1750000) {
+		ret = blockValue * 0.84;
+    } else if (nHeight > 1750000 && nHeight <= 1800000) {
+		ret = blockValue * 0.85;
+	} else if (nHeight > 1800000 && nHeight <= 1850000) {
+		ret = blockValue * 0.86;
+    } else if (nHeight > 1850000 && nHeight <= 1900000) {
+		ret = blockValue * 0.87;
+    } else if (nHeight > 1900000 && nHeight <= 1950000) {
+		ret = blockValue * 0.88;
+	} else if (nHeight > 1950000 && nHeight <= 2000000) {
+		ret = blockValue * 0.89;
+    } else if (nHeight > 2000000) {
+		ret = blockValue * 0.90; }
+
     return ret;
 }
 
@@ -2628,7 +2675,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                     coins->vout.resize(out.n + 1);
                 coins->vout[out.n] = undo.txout;
 				
-				if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX)){
+				if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX) && true == false){
                 	LOCK(cs_mapstake);
 
                  	// erase the spent input
@@ -3109,7 +3156,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         if (!pblocktree->WriteTxIndex(vPos))
             return state.Abort("Failed to write transaction index");
 		
-    if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX)){
+    if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX) && true == false){
     	LOCK(cs_mapstake);
 
      	// add new entries
@@ -4318,7 +4365,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
     int nHeight = pindex->nHeight;
 	
 	
-	if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX)) {
+	if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX) && true == false) {
 		if (block.IsProofOfStake()) {
 			LOCK(cs_main);
 

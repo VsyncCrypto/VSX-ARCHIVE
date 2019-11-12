@@ -2586,15 +2586,6 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         COutPoint prevoutStake = COutPoint(pcoin.first->GetHash(), pcoin.second);
         nTxNewTime = GetAdjustedTime();
 
-        int64_t nStakePile = pcoin.first->vout[pcoin.second].nValue;
-        if ( nStakePile < Params().MinStakeInput() ) {
-            // don't spam the log
-            if (fDebug && GetBoolArg("-printcoinstake", false))
-                LogPrintf("CreateCoinStake() : min input violation, nStakePile = %d minStakeInput = %d\n", nStakePile, Params().MinStakeInput() );
-            continue;
-        }
-
-
         //iterates each utxo inside of CheckStakeKernelHash()
         if (CheckStakeKernelHash(nBits, block, *pcoin.first, prevoutStake, nTxNewTime, nHashDrift, false, hashProofOfStake, true)) {
             //Double check that this will pass time requirements
