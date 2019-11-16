@@ -1,5 +1,5 @@
 ---
-name: "VSX-linux-3.8.6.5"
+name: "vsync-linux-3.8.6"
 enable_cache: true
 suites:
 - "trusty"
@@ -30,7 +30,7 @@ packages:
 reference_datetime: "2015-06-01 00:00:00"
 remotes:
 - "url": "https://github.com/VsyncCrypto/VSX.git"
-  "dir": "VSX"
+  "dir": "vsync"
 files: []
 script: |
   WRAP_DIR=$HOME/wrapped
@@ -104,7 +104,7 @@ script: |
   EOF
   chmod +x ${WRAP_DIR}/${prog}
   done
-  cd VSX
+  cd vsync
   BASEPREFIX=`pwd`/depends
   # Build dependencies for each host
   for i in $HOSTS; do
@@ -124,13 +124,13 @@ script: |
   ./autogen.sh
   CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/
   make dist
-  SOURCEDIST=`echo VSX-*.tar.gz`
+  SOURCEDIST=`echo vsync-*.tar.gz`
   DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
   # Correct tar file order
   mkdir -p temp
   pushd temp
   tar xf ../$SOURCEDIST
-  find VSX-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
+  find vsync-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | gzip -9n > ../$SOURCEDIST
   popd
   ORIGPATH="$PATH"
   # Extract the release tarball into a dir for each host and build
