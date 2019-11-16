@@ -24,12 +24,12 @@ def setup():
     subprocess.check_call(['sudo', 'apt-get', 'install', '-qq'] + programs)
     if not os.path.isdir('gitian.sigs'):
         subprocess.check_call(['git', 'clone', 'https://github.com/VsyncCrypto/gitian.sigs.git'])
-    if not os.path.isdir('VSX-detached-sigs'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/VsyncCrypto/VSX-detached-sigs.git'])
+    if not os.path.isdir('vsync-detached-sigs'):
+        subprocess.check_call(['git', 'clone', 'https://github.com/VsyncCrypto/vsync-detached-sigs.git'])
     if not os.path.isdir('gitian-builder'):
         subprocess.check_call(['git', 'clone', 'https://github.com/devrandom/gitian-builder.git'])
-    if not os.path.isdir('VSX'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/VsyncCrypto/VSX.git'])
+    if not os.path.isdir('vsync'):
+        subprocess.check_call(['git', 'clone', 'https://github.com/VsyncCrypto/VSX.git', 'vsync'])
     os.chdir('gitian-builder')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
     if args.docker:
@@ -46,34 +46,34 @@ def setup():
 def build():
     global args, workdir
 
-    os.makedirs('VSX-binaries/' + args.version, exist_ok=True)
+    os.makedirs('vsync-binaries/' + args.version, exist_ok=True)
     print('\nBuilding Dependencies\n')
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
 
     subprocess.check_call(['wget', '-N', '-P', 'inputs', 'http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz'])
     subprocess.check_call(['wget', '-N', '-P', 'inputs', 'https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch'])
-    subprocess.check_call(['make', '-C', '../VSX/depends', 'download', 'SOURCES_PATH=' + os.getcwd() + '/cache/common'])
+    subprocess.check_call(['make', '-C', '../vsync/depends', 'download', 'SOURCES_PATH=' + os.getcwd() + '/cache/common'])
 
     if args.linux:
         print('\nCompiling ' + args.version + ' Linux')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'VSX='+args.commit, '--url', 'VSX='+args.url, '../VSX/contrib/gitian-descriptors/gitian-linux.yml'])
-        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../VSX/contrib/gitian-descriptors/gitian-linux.yml'])
-        subprocess.check_call('mv build/out/VSX-*.tar.gz build/out/src/VSX-*.tar.gz ../VSX-binaries/'+args.version, shell=True)
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'vsync='+args.commit, '--url', 'vsync='+args.url, '../vsync/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../vsync/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call('mv build/out/vsync-*.tar.gz build/out/src/vsync-*.tar.gz ../vsync-binaries/'+args.version, shell=True)
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'VSX='+args.commit, '--url', 'VSX='+args.url, '../VSX/contrib/gitian-descriptors/gitian-win.yml'])
-        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../VSX/contrib/gitian-descriptors/gitian-win.yml'])
-        subprocess.check_call('mv build/out/VSX-*-win-unsigned.tar.gz inputs/', shell=True)
-        subprocess.check_call('mv build/out/VSX-*.zip build/out/VSX-*.exe ../VSX-binaries/'+args.version, shell=True)
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'vsync='+args.commit, '--url', 'vsync='+args.url, '../vsync/contrib/gitian-descriptors/gitian-win.yml'])
+        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../vsync/contrib/gitian-descriptors/gitian-win.yml'])
+        subprocess.check_call('mv build/out/vsync-*-win-unsigned.tar.gz inputs/', shell=True)
+        subprocess.check_call('mv build/out/vsync-*.zip build/out/vsync-*.exe ../vsync-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nCompiling ' + args.version + ' MacOS')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'VSX='+args.commit, '--url', 'VSX='+args.url, '../VSX/contrib/gitian-descriptors/gitian-osx.yml'])
-        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../VSX/contrib/gitian-descriptors/gitian-osx.yml'])
-        subprocess.check_call('mv build/out/VSX-*-osx-unsigned.tar.gz inputs/', shell=True)
-        subprocess.check_call('mv build/out/VSX-*.tar.gz build/out/VSX-*.dmg ../VSX-binaries/'+args.version, shell=True)
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'vsync='+args.commit, '--url', 'vsync='+args.url, '../vsync/contrib/gitian-descriptors/gitian-osx.yml'])
+        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../vsync/contrib/gitian-descriptors/gitian-osx.yml'])
+        subprocess.check_call('mv build/out/vsync-*-osx-unsigned.tar.gz inputs/', shell=True)
+        subprocess.check_call('mv build/out/vsync-*.tar.gz build/out/vsync-*.dmg ../vsync-binaries/'+args.version, shell=True)
 
     os.chdir(workdir)
 
@@ -96,18 +96,18 @@ def sign():
 
     if args.windows:
         print('\nSigning ' + args.version + ' Windows')
-        subprocess.check_call('cp inputs/VSX-' + args.version + '-win-unsigned.tar.gz inputs/VSX-win-unsigned.tar.gz', shell=True)
-        subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../VSX/contrib/gitian-descriptors/gitian-win-signer.yml'])
-        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-signed', '--destination', '../gitian.sigs/', '../VSX/contrib/gitian-descriptors/gitian-win-signer.yml'])
-        subprocess.check_call('mv build/out/VSX-*win64-setup.exe ../VSX-binaries/'+args.version, shell=True)
-        subprocess.check_call('mv build/out/VSX-*win32-setup.exe ../VSX-binaries/'+args.version, shell=True)
+        subprocess.check_call('cp inputs/vsync-' + args.version + '-win-unsigned.tar.gz inputs/vsync-win-unsigned.tar.gz', shell=True)
+        subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../vsync/contrib/gitian-descriptors/gitian-win-signer.yml'])
+        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-signed', '--destination', '../gitian.sigs/', '../vsync/contrib/gitian-descriptors/gitian-win-signer.yml'])
+        subprocess.check_call('mv build/out/vsync-*win64-setup.exe ../vsync-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/vsync-*win32-setup.exe ../vsync-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nSigning ' + args.version + ' MacOS')
-        subprocess.check_call('cp inputs/VSX-' + args.version + '-osx-unsigned.tar.gz inputs/VSX-osx-unsigned.tar.gz', shell=True)
-        subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../VSX/contrib/gitian-descriptors/gitian-osx-signer.yml'])
-        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-signed', '--destination', '../gitian.sigs/', '../VSX/contrib/gitian-descriptors/gitian-osx-signer.yml'])
-        subprocess.check_call('mv build/out/VSX-osx-signed.dmg ../VSX-binaries/'+args.version+'/VSX-'+args.version+'-osx.dmg', shell=True)
+        subprocess.check_call('cp inputs/vsync-' + args.version + '-osx-unsigned.tar.gz inputs/vsync-osx-unsigned.tar.gz', shell=True)
+        subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../vsync/contrib/gitian-descriptors/gitian-osx-signer.yml'])
+        subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-signed', '--destination', '../gitian.sigs/', '../vsync/contrib/gitian-descriptors/gitian-osx-signer.yml'])
+        subprocess.check_call('mv build/out/vsync-osx-signed.dmg ../vsync-binaries/'+args.version+'/vsync-'+args.version+'-osx.dmg', shell=True)
 
     os.chdir(workdir)
 
@@ -129,23 +129,23 @@ def verify():
 
     if args.linux:
         print('\nVerifying v'+args.version+' Linux\n')
-        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-linux', '../VSX/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-linux', '../vsync/contrib/gitian-descriptors/gitian-linux.yml'])
         print('\nVerifying v'+args.version+' Linux\n')
-        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-linux', '../VSX/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-linux', '../vsync/contrib/gitian-descriptors/gitian-linux.yml'])
 
     if args.windows:
         print('\nVerifying v'+args.version+' Windows\n')
-        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-win-unsigned', '../VSX/contrib/gitian-descriptors/gitian-win.yml'])
+        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-win-unsigned', '../vsync/contrib/gitian-descriptors/gitian-win.yml'])
         if args.sign:
             print('\nVerifying v'+args.version+' Signed Windows\n')
-            subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-win-signed', '../VSX/contrib/gitian-descriptors/gitian-win-signer.yml'])
+            subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-win-signed', '../vsync/contrib/gitian-descriptors/gitian-win-signer.yml'])
 
     if args.macos:
         print('\nVerifying v'+args.version+' MacOS\n')
-        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-osx-unsigned', '../VSX/contrib/gitian-descriptors/gitian-osx.yml'])
+        subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-osx-unsigned', '../vsync/contrib/gitian-descriptors/gitian-osx.yml'])
         if args.sign:
             print('\nVerifying v'+args.version+' Signed MacOS\n')
-            subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-osx-signed', '../VSX/contrib/gitian-descriptors/gitian-osx-signer.yml'])
+            subprocess.check_call(['bin/gverify', '-v', '-d', '../gitian.sigs/', '-r', args.version+'-osx-signed', '../vsync/contrib/gitian-descriptors/gitian-osx-signer.yml'])
 
     os.chdir(workdir)
 
@@ -223,10 +223,10 @@ def main():
     if args.setup:
         setup()
 
-    os.chdir('VSX')
+    os.chdir('vsync')
     if args.pull:
         subprocess.check_call(['git', 'fetch', args.url, 'refs/pull/'+args.version+'/merge'])
-        os.chdir('../gitian-builder/inputs/VSX')
+        os.chdir('../gitian-builder/inputs/vsync')
         subprocess.check_call(['git', 'fetch', args.url, 'refs/pull/'+args.version+'/merge'])
         args.commit = subprocess.check_output(['git', 'show', '-s', '--format=%H', 'FETCH_HEAD'], universal_newlines=True, encoding='utf8').strip()
         args.version = 'pull-' + args.version
