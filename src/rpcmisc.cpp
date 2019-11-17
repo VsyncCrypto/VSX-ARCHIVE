@@ -108,21 +108,12 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     obj.push_back(Pair("difficulty", (double)GetDifficulty()));
     obj.push_back(Pair("testnet", Params().TestnetToBeDeprecatedFieldRPC()));
     obj.push_back(Pair("moneysupply",ValueFromAmount(chainActive.Tip()->nMoneySupply)));
-<<<<<<< HEAD
-    Object zvsxObj;
-=======
-    UniValue zpivObj(UniValue::VOBJ);
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
+    UniValue zvsxObj(UniValue::VOBJ);
     for (auto denom : libzerocoin::zerocoinDenomList) {
         zvsxObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
-<<<<<<< HEAD
-    zvsxObj.emplace_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
-    obj.emplace_back(Pair("zVSXsupply", zvsxObj));
-    
-=======
-    zpivObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
-    obj.push_back(Pair("zPIVsupply", zpivObj));
+    zvsxObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
+    obj.push_back(Pair("zVSXsupply", zvsxObj));
 
 >>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
 #ifdef ENABLE_WALLET

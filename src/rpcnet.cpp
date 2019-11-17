@@ -202,7 +202,6 @@ UniValue addnode(const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
-<<<<<<< HEAD
 UniValue disconnectnode(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
@@ -226,10 +225,6 @@ UniValue disconnectnode(const UniValue& params, bool fHelp)
 }
 
 UniValue getaddednodeinfo(const UniValue& params, bool fHelp)
-
-=======
-UniValue getaddednodeinfo(const UniValue& params, bool fHelp)
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(

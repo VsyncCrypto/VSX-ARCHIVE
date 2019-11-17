@@ -90,21 +90,12 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
 
     result.push_back(Pair("moneysupply",ValueFromAmount(blockindex->nMoneySupply)));
 
-<<<<<<< HEAD
-    Object zvsxObj;
-=======
-    UniValue zpivObj(UniValue::VOBJ);
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
+    UniValue zvsxObj(UniValue::VOBJ);
     for (auto denom : libzerocoin::zerocoinDenomList) {
         zvsxObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
-<<<<<<< HEAD
-    zvsxObj.emplace_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
-    result.emplace_back(Pair("zVSXsupply", zvsxObj));
-=======
-    zpivObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
-    result.push_back(Pair("zPIVsupply", zpivObj));
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
+    zvsxObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
+    result.push_back(Pair("zVSXsupply", zvsxObj));
 
     return result;
 }

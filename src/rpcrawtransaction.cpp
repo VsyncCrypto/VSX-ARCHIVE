@@ -360,11 +360,8 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
     BOOST_FOREACH(const string& name_, addrList) {
         CBitcoinAddress address(name_);
         if (!address.IsValid())
-<<<<<<< HEAD
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Vsync address: ") + s.name_);
-=======
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid PIVX address: ")+name_);
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
+
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Vsync address: ")+name_);
 
         if (setAddress.count(address))
             throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+name_);
