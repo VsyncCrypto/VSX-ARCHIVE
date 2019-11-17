@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-bin_PROGRAMS += qt/test/test_vsync-qt
-TESTS += qt/test/test_vsync-qt
-=======
 # Copyright (c) 2013-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-bin_PROGRAMS += qt/test/test_pivx-qt
-TESTS += qt/test/test_pivx-qt
->>>>>>> fd71f2572... [Build] Update build system from upstream
+bin_PROGRAMS += qt/test/test_vsync-qt
+TESTS += qt/test/test_vsync-qt
 
 TEST_QT_MOC_CPP = qt/test/moc_uritests.cpp
 
@@ -20,11 +15,7 @@ TEST_QT_H = \
   qt/test/paymentrequestdata.h \
   qt/test/paymentservertests.h
 
-<<<<<<< HEAD
-qt_test_test_vsync_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
-=======
-qt_test_test_pivx_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
->>>>>>> fd71f2572... [Build] Update build system from upstream
+qt_test_test_vsync_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_TEST_INCLUDES) $(PROTOBUF_CFLAGS)
 
 qt_test_test_vsync_qt_SOURCES = \
@@ -49,12 +40,8 @@ qt_test_test_vsync_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCO
   $(LIBMEMENV) $(BOOST_LIBS) $(QT_DBUS_LIBS) $(QT_TEST_LIBS) $(QT_LIBS) \
   $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-<<<<<<< HEAD
 qt_test_test_vsync_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-=======
-qt_test_test_pivx_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 qt_test_test_bitcoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
->>>>>>> fd71f2572... [Build] Update build system from upstream
 
 CLEAN_BITCOIN_QT_TEST = $(TEST_QT_MOC_CPP) qt/test/*.gcda qt/test/*.gcno
 

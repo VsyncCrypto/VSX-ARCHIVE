@@ -137,17 +137,9 @@ ax_pthread_flags="pthreads none -Kthread -pthread -pthreads -mthreads pthread --
 # none: in case threads are in libc; should be tried before -Kthread and
 #       other compiler flags to prevent continual compiler warnings
 # -Kthread: Sequent (threads in libc, but -Kthread needed for pthread.h)
-<<<<<<< HEAD
-# -kthread: FreeBSD kernel threads (preferred to -pthread since SMP-able)
-# lthread: LinuxThreads port on FreeBSD (also preferred to -pthread)
-# -pthread: Linux/gcc (kernel threads), BSD/gcc (userland threads)
-# -pthreads: Vsync/gcc
-# -mthreads: Mingw32/gcc, Lynx/gcc
-=======
 # -pthread: Linux/gcc (kernel threads), BSD/gcc (userland threads), Tru64
 #           (Note: HP C rejects this with "bad form for `-t' option")
 # -pthreads: Solaris/gcc (Note: HP C also rejects)
->>>>>>> fd71f2572... [Build] Update build system from upstream
 # -mt: Sun Workshop C (may only link SunOS threads [-lthread], but it
 #      doesn't hurt to check since this sometimes defines pthreads and
 #      -D_REENTRANT too), HP C (must be checked before -lpthread, which
@@ -158,10 +150,6 @@ ax_pthread_flags="pthreads none -Kthread -pthread -pthreads -mthreads pthread --
 # --thread-safe: KAI C++
 # pthread-config: use pthread-config program (for GNU Pth library)
 
-<<<<<<< HEAD
-case ${host_os} in
-        vsync*)
-=======
 case $host_os in
 
         freebsd*)
@@ -197,7 +185,6 @@ case $host_os in
         ;;
 
         solaris*)
->>>>>>> fd71f2572... [Build] Update build system from upstream
 
         # On Vsync (at least, for some versions), libc contains stubbed
         # (non-functional) versions of the pthreads routines, so link-based
@@ -414,41 +401,6 @@ if test "x$ax_pthread_ok" = "xyes"; then
         LIBS="$PTHREAD_LIBS $LIBS"
 
         # Detect AIX lossage: JOINABLE attribute is called UNDETACHED.
-<<<<<<< HEAD
-        AC_MSG_CHECKING([for joinable pthread attribute])
-        attr_name=unknown
-        for attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do
-            AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <pthread.h>],
-                           [int attr = $attr; return attr /* ; */])],
-                [attr_name=$attr; break],
-                [])
-        done
-        AC_MSG_RESULT([$attr_name])
-        if test "$attr_name" != PTHREAD_CREATE_JOINABLE; then
-            AC_DEFINE_UNQUOTED([PTHREAD_CREATE_JOINABLE], [$attr_name],
-                               [Define to necessary symbol if this constant
-                                uses a non-standard name on your system.])
-        fi
-
-        AC_MSG_CHECKING([if more special flags are required for pthreads])
-        flag=no
-        case ${host_os} in
-            aix* | freebsd* | darwin*) flag="-D_THREAD_SAFE";;
-            osf* | hpux*) flag="-D_REENTRANT";;
-            vsync*)
-            if test "$GCC" = "yes"; then
-                flag="-D_REENTRANT"
-            else
-                # TODO: What about Clang on Vsync?
-                flag="-mt -D_REENTRANT"
-            fi
-            ;;
-        esac
-        AC_MSG_RESULT([$flag])
-        if test "x$flag" != xno; then
-            PTHREAD_CFLAGS="$flag $PTHREAD_CFLAGS"
-        fi
-=======
         AC_CACHE_CHECK([for joinable pthread attribute],
             [ax_cv_PTHREAD_JOINABLE_ATTR],
             [ax_cv_PTHREAD_JOINABLE_ATTR=unknown
@@ -482,7 +434,6 @@ if test "x$ax_pthread_ok" = "xyes"; then
                test "x$ax_pthread_special_flags_added" != "xyes"],
               [PTHREAD_CFLAGS="$ax_cv_PTHREAD_SPECIAL_FLAGS $PTHREAD_CFLAGS"
                ax_pthread_special_flags_added=yes])
->>>>>>> fd71f2572... [Build] Update build system from upstream
 
         AC_CACHE_CHECK([for PTHREAD_PRIO_INHERIT],
             [ax_cv_PTHREAD_PRIO_INHERIT],

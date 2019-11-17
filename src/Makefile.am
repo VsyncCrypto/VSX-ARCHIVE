@@ -194,14 +194,9 @@ obj/build.h: FORCE
 	  "$(abs_top_srcdir)"
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-<<<<<<< HEAD
 # server: shared between vsyncd and vsync-qt
-libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-=======
-# server: shared between pivxd and pivx-qt
 libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
->>>>>>> fd71f2572... [Build] Update build system from upstream
 libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
@@ -355,14 +350,9 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/Params.cpp \
   libzerocoin/SerialNumberSignatureOfKnowledge.cpp
 
-<<<<<<< HEAD
 # common: shared between vsyncd, and vsync-qt and non-server tools
-libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-=======
-# common: shared between pivxd, and pivx-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
->>>>>>> fd71f2572... [Build] Update build system from upstream
 libbitcoin_common_a_SOURCES = \
   accumulators.cpp \
   accumulatormap.cpp \
@@ -422,14 +412,9 @@ if GLIBC_BACK_COMPAT
 libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 endif
 
-<<<<<<< HEAD
 # cli: shared between vsync-cli and vsync-qt
-libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-=======
-# cli: shared between pivx-cli and pivx-qt
 libbitcoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
->>>>>>> fd71f2572... [Build] Update build system from upstream
 libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
   $(BITCOIN_CORE_H)
@@ -437,21 +422,17 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-<<<<<<< HEAD
-# bitcoind binary #
-vsyncd_LDADD = \
-=======
-# pivxd binary #
-pivxd_SOURCES = pivxd.cpp
-pivxd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-pivxd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-pivxd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# vsyncd binary #
+vsyncd_SOURCES = vsyncd.cpp
+vsyncd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+vsyncd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+vsyncd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-pivxd_SOURCES += pivxd-res.rc
+vsyncd_SOURCES += vsyncd-res.rc
 endif
-pivxd_LDADD = \
->>>>>>> fd71f2572... [Build] Update build system from upstream
+vsyncd_LDADD = \
+
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -464,78 +445,38 @@ pivxd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-<<<<<<< HEAD
-if ENABLE_ZMQ
-vsyncd_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
-endif
-
-if ENABLE_WALLET
-vsyncd_LDADD += libbitcoin_wallet.a
-endif
-vsyncd_SOURCES = vsyncd.cpp
-#
-
-if TARGET_WINDOWS
-vsyncd_SOURCES += vsyncd-res.rc
-endif
-
-vsyncd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-vsyncd_CPPFLAGS = $(BITCOIN_INCLUDES)
-vsyncd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-
+vsyncd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
 # vsync-cli binary #
-vsync_cli_LDADD = \
-  $(LIBBITCOIN_CLI) \
-  $(LIBUNIVALUE) \
-  $(LIBBITCOIN_UTIL) \
-  $(BOOST_LIBS) \
-  $(SSL_LIBS) \
-  $(CRYPTO_LIBS) \
-  $(EVENT_LIBS)
-
-vsync_cli_SOURCES = \
-  vsync-cli.cpp
-
-vsync_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-#
-
-# vsync-tx binary #
-vsync_tx_LDADD = \
-=======
-pivxd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
-
-# pivx-cli binary #
-pivx_cli_SOURCES = pivx-cli.cpp
-pivx_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-pivx_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-pivx_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+vsync_cli_SOURCES = vsync-cli.cpp
+vsync_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+vsync_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+vsync_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-pivx_cli_SOURCES += pivx-cli-res.rc
+vsync_cli_SOURCES += vsync-cli-res.rc
 endif
 
-pivx_cli_LDADD = \
+vsync_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-pivx_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+vsync_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# pivx-tx binary #
-pivx_tx_SOURCES = pivx-tx.cpp
-pivx_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-pivx_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-pivx_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# vsync-tx binary #
+vsync_tx_SOURCES = vsync-tx.cpp
+vsync_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+vsync_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+vsync_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-pivx_tx_SOURCES += pivx-tx-res.rc
+vsync_tx_SOURCES += vsync-tx-res.rc
 endif
 
-pivx_tx_LDADD = \
->>>>>>> fd71f2572... [Build] Update build system from upstream
+vsync_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_ZEROCOIN) \
@@ -543,20 +484,8 @@ pivx_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-<<<<<<< HEAD
-vsync_tx_SOURCES = vsync-tx.cpp
-vsync_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+vsync_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
-vsync_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-
-if TARGET_WINDOWS
-vsync_cli_SOURCES += vsync-cli-res.rc
-endif
-vsync_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-=======
-pivx_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
-#
->>>>>>> fd71f2572... [Build] Update build system from upstream
 
 # bitcoinconsensus library #
 if BUILD_BITCOIN_LIBS
