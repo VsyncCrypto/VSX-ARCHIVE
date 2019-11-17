@@ -2343,13 +2343,8 @@ UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
     
     CWalletDB walletdb(pwalletMain->strWalletFile);
     list<CZerocoinMint> listPubCoin = walletdb.ListMintedCoins(true, false, true);
-<<<<<<< HEAD
-    
-    Array jsonList;
-=======
 
     UniValue jsonList(UniValue::VARR);
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
     for (const CZerocoinMint& pubCoinItem : listPubCoin) {
         jsonList.push_back(pubCoinItem.GetValue().GetHex());
     }

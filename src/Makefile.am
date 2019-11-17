@@ -457,15 +457,9 @@ vsync_cli_SOURCES = \
 vsync_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 #
 
-<<<<<<< HEAD
 # vsync-tx binary #
 vsync_tx_LDADD = \
-  $(LIBBITCOIN_UNIVALUE) \
-=======
-# pivx-tx binary #
-pivx_tx_LDADD = \
   $(LIBUNIVALUE) \
->>>>>>> 81651b980... [Univalue] add univalue over subtree
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_ZEROCOIN) \
   $(LIBBITCOIN_UTIL) \
