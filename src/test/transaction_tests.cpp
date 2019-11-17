@@ -21,17 +21,8 @@
 #include <boost/assign/list_of.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/assign/list_of.hpp>
-<<<<<<< HEAD
-<<<<<<< HEAD
-#include "json/json_spirit_writer_template.h"
-=======
 
 #include <univalue.h>
->>>>>>> 81651b980... [Univalue] add univalue over subtree
-=======
-
-#include "univalue/univalue.h"
->>>>>>> 631fcb811... [Tests] Update test suite to use new UniValue
 
 using namespace std;
 using namespace boost::algorithm;

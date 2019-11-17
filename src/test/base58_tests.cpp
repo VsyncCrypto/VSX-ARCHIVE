@@ -17,20 +17,9 @@
 #include <boost/foreach.hpp>
 #include <boost/test/unit_test.hpp>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-using namespace json_spirit;
-extern Array read_json(const std::string& jsondata);
-=======
 #include <univalue.h>
 
 extern UniValue read_json(const std::string& jsondata);
->>>>>>> 81651b980... [Univalue] add univalue over subtree
-=======
-#include "univalue/univalue.h"
-
-extern UniValue read_json(const std::string& jsondata);
->>>>>>> 631fcb811... [Tests] Update test suite to use new UniValue
 
 BOOST_AUTO_TEST_SUITE(base58_tests)
 

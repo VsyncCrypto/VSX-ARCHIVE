@@ -11,16 +11,8 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/test/unit_test.hpp>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 #include <univalue.h>
 
->>>>>>> 81651b980... [Univalue] add univalue over subtree
-=======
-#include "univalue/univalue.h"
-
->>>>>>> 631fcb811... [Tests] Update test suite to use new UniValue
 using namespace std;
 
 extern UniValue createArgs(int nRequired, const char* address1 = NULL, const char* address2 = NULL);
