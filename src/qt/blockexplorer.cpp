@@ -472,15 +472,9 @@ void BlockExplorer::showEvent(QShowEvent*)
         m_History.push_back(text);
         updateNavButtons();
 
-<<<<<<< HEAD
-        if (!GetBoolArg("-txindex", false)) {
-            QString Warning = tr("Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (vsync.conf).");
-            QMessageBox::warning(this, "Vsync Core Blockchain Explorer", Warning, QMessageBox::Ok);
-=======
         if (!GetBoolArg("-txindex", true)) {
             QString Warning = tr("Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (pivx.conf).");
             QMessageBox::warning(this, "PIVX Core Blockchain Explorer", Warning, QMessageBox::Ok);
->>>>>>> 50088b8c7... [Qt] Fix warning dialog popup for the Blockchain Explorer
         }
     }
 }
