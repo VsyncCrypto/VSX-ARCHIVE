@@ -115,7 +115,6 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     zvsxObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
     obj.push_back(Pair("zVSXsupply", zvsxObj));
 
->>>>>>> c0560fa34... [RPC] Convert source tree from json_spirit to UniValue
 #ifdef ENABLE_WALLET
     if (pwalletMain) {
         obj.push_back(Pair("keypoololdest", pwalletMain->GetOldestKeyPoolTime()));
