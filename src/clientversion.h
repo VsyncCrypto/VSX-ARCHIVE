@@ -6,37 +6,12 @@
 #define BITCOIN_CLIENTVERSION_H
 
 #if defined(HAVE_CONFIG_H)
-<<<<<<< HEAD
 #include "config/vsync-config.h"
-#else
-
-/**
- * client versioning and copyright year
- */
-
-//! These need to be macros, as clientversion.cpp's and vsync*-res.rc's voodoo requires it
-#define CLIENT_VERSION_MAJOR 3
-#define CLIENT_VERSION_MINOR 8
-#define CLIENT_VERSION_REVISION 6
-#define CLIENT_VERSION_BUILD 5
-
-//! Set to true for release, false for prerelease or test build
-#define CLIENT_VERSION_IS_RELEASE true
-
-/**
- * Copyright year (2009-this)
- * Todo: update this when changing our copyright comments in the source
- */
-#define COPYRIGHT_YEAR 2019
-
-=======
-#include "config/pivx-config.h"
->>>>>>> a629d3831... build: Deduplicate version numbers
 #endif //HAVE_CONFIG_H
 
 // Check that required client information is defined
 #if !defined(CLIENT_VERSION_MAJOR) || !defined(CLIENT_VERSION_MINOR) || !defined(CLIENT_VERSION_REVISION) || !defined(CLIENT_VERSION_BUILD) || !defined(CLIENT_VERSION_IS_RELEASE) || !defined(COPYRIGHT_YEAR)
-#error Client version information missing: version is not defined by pivx-config.h or in any other way
+#error Client version information missing: version is not defined by vsync-config.h or in any other way
 #endif
 
 /**
