@@ -200,9 +200,6 @@ Value addnode(const Array& params, bool fHelp)
     return Value::null;
 }
 
-<<<<<<< HEAD
-Value getaddednodeinfo(const Array& params, bool fHelp)
-=======
 UniValue disconnectnode(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
@@ -226,7 +223,7 @@ UniValue disconnectnode(const UniValue& params, bool fHelp)
 }
 
 UniValue getaddednodeinfo(const UniValue& params, bool fHelp)
->>>>>>> 9c1262f83... Add disconnectnode RPC command
+
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
