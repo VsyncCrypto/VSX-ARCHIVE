@@ -1,16 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-<<<<<<< HEAD
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2017-2019 The Vsync developers
-=======
-// Copyright (c) 2015-2018 The PIVX developers
->>>>>>> 6839f3b11... [Crypto] Switch from openssl to secp256k1 for consensus
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_KEY_H
-#define PIVX_KEY_H
+#ifndef VSYNC_KEY_H
+#define VSYNC_KEY_H
 
 #include "allocators.h"
 #include "serialize.h"
@@ -183,4 +179,4 @@ void ECC_Stop(void);
 /** Check that required EC support is available at runtime. */
 bool ECC_InitSanityCheck(void);
 
-#endif // PIVX_KEY_H
+#endif // VSYNC_KEY_H

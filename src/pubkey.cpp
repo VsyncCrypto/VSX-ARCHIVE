@@ -1,8 +1,6 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
-<<<<<<< HEAD
-=======
 // Copyright (c) 2017-2018 The PIVX developers
->>>>>>> 6839f3b11... [Crypto] Switch from openssl to secp256k1 for consensus
+// Copyright (c) 2017-2019 The Vsync developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

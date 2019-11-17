@@ -6,13 +6,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-<<<<<<< HEAD
 #ifndef XEVAN_H
 #define XEVAN_H
-=======
-#ifndef PIVX_HASH_H
-#define PIVX_HASH_H
->>>>>>> 6839f3b11... [Crypto] Switch from openssl to secp256k1 for consensus
 
 #include "crypto/ripemd160.h"
 #include "crypto/sha256.h"
@@ -472,4 +467,4 @@ static unsigned char pblank[1];
 
 void scrypt_hash(const char* pass, unsigned int pLen, const char* salt, unsigned int sLen, char* output, unsigned int N, unsigned int r, unsigned int p, unsigned int dkLen);
 
-#endif // PIVX_HASH_H
+#endif // VSYNC_HASH_H
