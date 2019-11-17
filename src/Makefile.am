@@ -428,7 +428,6 @@ if TARGET_WINDOWS
 vsyncd_SOURCES += vsyncd-res.rc
 endif
 vsyncd_LDADD = \
-
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
