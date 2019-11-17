@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 VSYNC Core integration/staging repository (Verson 3.8.6.5)
 =====================================
 
@@ -49,37 +48,3 @@ More information at [vsync.io](http://www.vsync.io) Visit our ANN thread at [Bit
 <tr><td>Phase 9</td><td>604800-647999</td><td>11 VSX</td><td>30%/70% (3.3/7.7)</td><td>N/A</td></tr>
 <tr><td>Phase X</td><td>648000-Infinite</td><td>3 VSX</td><td>30%/70% (0.9/2.1)</td><td>N/A</td></tr>
 </table>
-=======
-
-# UniValue
-
-## Summary
-
-A universal value class, with JSON encoding and decoding.
-
-UniValue is an abstract data type that may be a null, boolean, string,
-number, array container, or a key/value dictionary container, nested to
-an arbitrary depth.
-
-This class is aligned with the JSON standard, [RFC
-7159](https://tools.ietf.org/html/rfc7159.html).
-
-## Installation
-
-This project is a standard GNU
-[autotools](https://www.gnu.org/software/automake/manual/html_node/Autotools-Introduction.html)
-project.  Build and install instructions are available in the `INSTALL`
-file provided with GNU autotools.
-
-```
-$ ./autogen.sh
-$ ./configure
-$ make
-```
-
-## Design
-
-UniValue provides a single dynamic RAII C++ object class,
-and minimizes template use (contra json_spirit).
-
->>>>>>> ef1718b79... Squashed 'src/univalue/' content from commit dac5296
