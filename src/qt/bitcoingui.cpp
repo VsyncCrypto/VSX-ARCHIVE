@@ -207,13 +207,9 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
         frameBlocksLayout->addStretch();
         frameBlocksLayout->addWidget(labelEncryptionIcon);
     }
-<<<<<<< HEAD
-    frameBlocksLayout->addStretch();
-    frameBlocksLayout->addWidget(labelStakingIcon);
-=======
+                                                                              
 #endif // ENABLE_WALLET
     frameBlocksLayout->addWidget(labelTorIcon);
->>>>>>> 162b57cca... [Qt] Add Tor service icon to status bar
     frameBlocksLayout->addStretch();
     frameBlocksLayout->addWidget(labelConnectionsIcon);
     frameBlocksLayout->addStretch();
