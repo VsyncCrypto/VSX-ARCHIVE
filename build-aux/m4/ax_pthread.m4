@@ -186,7 +186,7 @@ case $host_os in
 
         solaris*)
 
-        # On Vsync (at least, for some versions), libc contains stubbed
+        # On Solaris (at least, for some versions), libc contains stubbed
         # (non-functional) versions of the pthreads routines, so link-based
         # tests will erroneously succeed. (N.B.: The stubs are missing
         # pthread_cleanup_push, or rather a function called by this macro,
@@ -364,7 +364,7 @@ for ax_pthread_try_flag in $ax_pthread_flags; do
         # while pthread_create is in libc.  We check for pthread_attr_init
         # due to DEC craziness with -lpthreads.  We check for
         # pthread_cleanup_push because it is one of the few pthread
-        # functions on Vsync that doesn't have a non-functional libc stub.
+        # functions on Solaris that doesn't have a non-functional libc stub.
         # We try pthread_create on general principles.
 
         AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <pthread.h>
