@@ -61,19 +61,11 @@ using namespace libzerocoin;
  */
 
 CCriticalSection cs_main;
-CCriticalSection cs_mapstake;
 
 BlockMap mapBlockIndex;
 map<uint256, uint256> mapProofOfStake;
 set<pair<COutPoint, unsigned int> > setStakeSeen;
 
-// maps any spent outputs in the past maxreorgdepth blocks to the height it was spent
-// this means for incoming blocks, we can check that their stake output was not spent before
-// the incoming block tried to use it as a staking input. We can also prevent block spam
-// attacks because then we can check that either the staking input is available in the current
-// active chain, or the staking input was spent in the past 100 blocks after the height
-// of the incoming block.
-map<COutPoint, int> mapStakeSpent;
 map<unsigned int, unsigned int> mapHashedBlocks;
 CChain chainActive;
 CBlockIndex* pindexBestHeader = NULL;
@@ -2214,7 +2206,7 @@ int64_t GetBlockValue(int nHeight)
         nSubsidy = 11 * COIN;
     } else if (nHeight <= 1049999 && nHeight >= 648000) {
         nSubsidy = 3 * COIN;
-	} else if (nHeight >= 1050000) {
+    } else if (nHeight >= 1050000) {
         nSubsidy = 5 * COIN;
     } else {
         nSubsidy = 0 * COIN;
@@ -2675,12 +2667,6 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                     coins->vout.resize(out.n + 1);
                 coins->vout[out.n] = undo.txout;
 				
-				if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX) && true == false){
-                	LOCK(cs_mapstake);
-
-                 	// erase the spent input
-                	mapStakeSpent.erase(out);
-                }
             }
         }
     }
@@ -3155,31 +3141,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     if (fTxIndex)
         if (!pblocktree->WriteTxIndex(vPos))
             return state.Abort("Failed to write transaction index");
-		
-    if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX) && true == false){
-    	LOCK(cs_mapstake);
-
-     	// add new entries
-    	for (const CTransaction tx: block.vtx) {
-        	if (tx.IsCoinBase() || tx.IsZerocoinSpend())
-            	continue;
-        	for (const CTxIn in: tx.vin) {
-            		LogPrint("map", "mapStakeSpent: Insert %s | %u\n", in.prevout.ToString(), pindex->nHeight);
-            		mapStakeSpent.insert(std::make_pair(in.prevout, pindex->nHeight));
-        	}
-    	}
-
-		 // delete old entries
-		for (auto it = mapStakeSpent.begin(); it != mapStakeSpent.end();) {
-			if (it->second < pindex->nHeight - Params().MaxReorganizationDepth()) {
-				LogPrint("map", "mapStakeSpent: Erase %s | %u\n", it->first.ToString(), it->second);
-				it = mapStakeSpent.erase(it);
-			}
-			else {
-				it++;
-			}
-		}
-	}
 
     // add this block to the view's block chain
     view.SetBestBlock(pindex->GetBlockHash());
@@ -4363,58 +4324,6 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
     }
 
     int nHeight = pindex->nHeight;
-	
-	
-	if(IsSporkActive(SPORK_17_FAKE_STAKE_FIX) && block.GetBlockTime() >= GetSporkValue(SPORK_17_FAKE_STAKE_FIX) && true == false) {
-		if (block.IsProofOfStake()) {
-			LOCK(cs_main);
-
-			 CCoinsViewCache coins(pcoinsTip);
-
-			 if (!coins.HaveInputs(block.vtx[1])) {
-				LOCK(cs_mapstake);
-
-				 // the inputs are spent at the chain tip so we should look at the recently spent outputs
-				for (CTxIn in : block.vtx[1].vin) {
-					auto it = mapStakeSpent.find(in.prevout);
-					if (it == mapStakeSpent.end()) {
-						return false;
-					}
-					if (it->second < pindexPrev->nHeight) {
-						return false;
-					}
-				}
-			}
-
-			 // if this is on a fork
-			if (!chainActive.Contains(pindexPrev) && pindexPrev != NULL) {
-				// start at the block we're adding on to
-				CBlockIndex *last = pindexPrev;
-
-				 // while that block is not on the main chain
-				while (!chainActive.Contains(last) && last != NULL) {
-					CBlock bl;
-					ReadBlockFromDisk(bl, last);
-					// loop through every spent input from said block
-					for (CTransaction t : bl.vtx) {
-						for (CTxIn in: t.vin) {
-							// loop through every spent input in the staking transaction of the new block
-							for (CTxIn stakeIn : block.vtx[1].vin) {
-								// if they spend the same input
-								if (stakeIn.prevout == in.prevout) {
-									// reject the block
-									return false;
-								}
-							}
-						}
-					}
-
-					 // go to the parent block
-					last = last->pprev;
-				}
-			}
-		}
-	}
 
     // Write block to history file
     try {
