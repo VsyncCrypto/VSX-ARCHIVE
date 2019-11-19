@@ -1151,7 +1151,7 @@ public:
             }
 
             // Add masternode collaterals which are handled like locked coins
-            if (fMasterNode && vout[i].nValue == 100000 * COIN) {
+            else if (fMasterNode && vout[i].nValue == 100000 * COIN) {
                 nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
             }
 
