@@ -64,12 +64,14 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
 	(842000, uint256("0x905dc93fb8c1243bee2476f1146750b90f2f4f98405771afecf0b50ea2ef0d33"))
 	(844000, uint256("0x33ef90578ae809b874db2b845ae4c16579eb0b6feb7d52b5c918b4dd080830e1"))
 	(850000, uint256("0xe694af25c02b1487739fa0b75814d52f5949eee9b79d8f53bc2519392209f484"))
-	(850142, uint256("0x45db652de2b06fe05872cbf3343c37f08cff0ae801a2957f269032a14691085d"));
+	(850142, uint256("0x45db652de2b06fe05872cbf3343c37f08cff0ae801a2957f269032a14691085d"))
+	(1047536, uint256("0xab7330cb36010daf2c85b835c62d51c19125ba6155cc527ec84ec54ea076e32d"))
+	(1047971, uint256("0x13d8cb346c71ba27736662f9640b367a2c5b1dc8ee20fa45ad728764c2e7b50a"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1559170235, // * UNIX timestamp of last checkpoint block
-    1488838,    // * total number of transactions between genesis and last checkpoint
+    1574053373, // * UNIX timestamp of last checkpoint block
+    1885191,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2880        // * estimated number of transactions per day after checkpoint
 };
@@ -121,22 +123,22 @@ public:
         nTargetTimespan = 1 * 60; // Vsync: 1 minute
         nTargetSpacing = 1 * 60;  // Vsync: 1 minute
         nMaturity = 101;
-		nMaxMoneyOut = 10000000000 * COIN;
+        nMaxMoneyOut = 10000000000 * COIN;
         /** Height or Time Based Activations **/
         nLastPOWBlock = 259200;
         nModifierUpdateBlock = 1;
-		
+
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
-		nBlockEnforceInvalidUTXO = 350000;
+        nBlockEnforceInvalidUTXO = 350000;
         nZerocoinStartTime = 1524672000; //Wednesday, April 25, 2018 12:00:00 PM GMT-04:00
-		nZerocoinStartHeight = 299282;
-		
-		const char* pszTimestamp = "Vsync 27-08-2017";
-		
+        nZerocoinStartHeight = 299282;
+
+        const char* pszTimestamp = "Vsync 27-08-2017";
+
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
-				
+
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 0 * COIN;
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("0421fb0665876637d9d79d03a24f383393838fb9e3340858a6d5a70b079f4af57cfff3ca00310be5300d532adf6261ba98ac70d24d943a6be333bec6d7a6d93013") << OP_CHECKSIG;
@@ -148,24 +150,23 @@ public:
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 525433;
         hashGenesisBlock = genesis.GetHash();
-		
+
         assert(hashGenesisBlock == uint256("0x00000a47e5f67b18cc1bd58c9e50b5295370cc36df1245a2cd07bf6bb2486e72"));
         assert(genesis.hashMerkleRoot == uint256("0x55e07427d0ca8579ca7296908f464699df9a54782d28bda012656c9d33a3a3c4"));
-		
-		vSeeds.push_back(CDNSSeedData("vsyncseed.vsync.io", "vsyncseed.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node.vsync.io", "node.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node1.vsync.io", "node1.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node2.vsync.io", "node2.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node3.vsync.io", "node3.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node4.vsync.io", "node4.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node5.vsync.io", "node5.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node6.vsync.io", "node6.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node7.vsync.io", "node7.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node8.vsync.io", "node8.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node9.vsync.io", "node9.vsync.io"));
-		vSeeds.push_back(CDNSSeedData("node10.vsync.io", "node10.vsync.io"));
 
-		
+        vSeeds.push_back(CDNSSeedData("vsyncseed.vsync.io", "vsyncseed.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node.vsync.io", "node.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node1.vsync.io", "node1.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node2.vsync.io", "node2.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node3.vsync.io", "node3.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node4.vsync.io", "node4.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node5.vsync.io", "node5.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node6.vsync.io", "node6.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node7.vsync.io", "node7.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node8.vsync.io", "node8.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node9.vsync.io", "node9.vsync.io"));
+        vSeeds.push_back(CDNSSeedData("node10.vsync.io", "node10.vsync.io"));
+
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 70);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
