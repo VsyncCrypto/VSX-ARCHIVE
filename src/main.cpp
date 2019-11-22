@@ -3098,9 +3098,14 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // zerocoin accumulator: if a new accumulator checkpoint was generated, check that it is the correct value
     if (!fVerifyingBlocks && pindex->nHeight >= Params().Zerocoin_StartHeight() && pindex->nHeight % 10 == 0) {
         uint256 nCheckpointCalculated = 0;
-        if (!CalculateAccumulatorCheckpoint(pindex->nHeight, nCheckpointCalculated))
-            return state.DoS(100, error("ConnectBlock() : failed to calculate accumulator checkpoint"));
-
+        if (!CalculateAccumulatorCheckpoint(pindex->nHeight, nCheckpointCalculated)) {
+            if (!ShutdownRequested()) {
+                return state.DoS(100, error("%s: Failed to validate accumulator checkpoint for block=%s height=%d", __func__,
+                                      block.GetHash().GetHex(), pindex->nHeight), REJECT_INVALID, "bad-acc-checkpoint");
+            }
+            return error("%s: Failed to validate accumulator checkpoint for block=%s height=%d because wallet is shutting down", __func__,
+                         block.GetHash().GetHex(), pindex->nHeight);
+        }
         if (nCheckpointCalculated != block.nAccumulatorCheckpoint) {
             LogPrintf("%s: block=%d calculated: %s\n block: %s\n", __func__, pindex->nHeight, nCheckpointCalculated.GetHex(), block.nAccumulatorCheckpoint.GetHex());
             return state.DoS(100, error("ConnectBlock() : accumulator does not match calculated value"));
