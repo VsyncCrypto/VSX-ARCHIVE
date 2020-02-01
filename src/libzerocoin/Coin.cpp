@@ -10,7 +10,7 @@
  * @license    This project is released under the MIT license.
  **/
 
-// Copyright (c) 2019 The Vsync developers
+// Copyright (c) 2017-2020 The Vsync developers
 #include <stdexcept>
 #include <iostream>
 #include "Coin.h"

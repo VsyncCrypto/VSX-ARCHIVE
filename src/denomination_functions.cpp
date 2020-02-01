@@ -3,11 +3,11 @@
  *
  * @brief      Denomination functions for the Zerocoin library.
  *
- * @copyright  Copyright 2017 Vsync Developers
+ * @copyright  Copyright 2017-2020 Vsync Developers
  * @license    This project is released under the MIT license.
  **/
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2019 The Vsync developers
+// Copyright (c) 2017-2020 The Vsync developers
 
 #include "denomination_functions.h"
 

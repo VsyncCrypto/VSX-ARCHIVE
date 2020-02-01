@@ -3,7 +3,7 @@
  *
  * @brief      Functions for converting to/from Zerocoin Denominations to other values library.
  *
- * @copyright  Copyright 2017 Vsync Developers
+ * @copyright  Copyright 2017-2020 Vsync Developers
  * @license    This project is released under the MIT license.
  **/
 

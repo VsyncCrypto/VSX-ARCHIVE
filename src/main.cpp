@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2017-2019 The Vsync developers
+// Copyright (c) 2017-2020 The Vsync developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -3096,9 +3096,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         nExpectedMint += nFees;
 
     //Check that the block does not overmint
-    if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {
-        return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
-                FormatMoney(pindex->nMint), FormatMoney(nExpectedMint)), REJECT_INVALID, "bad-cb-amount");
+    if (pindex->nHeight > 1153300){
+        if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {
+            return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
+                    FormatMoney(pindex->nMint), FormatMoney(nExpectedMint)), REJECT_INVALID, "bad-cb-amount");
+        }
     }
 
     // zerocoin accumulator: if a new accumulator checkpoint was generated, check that it is the correct value

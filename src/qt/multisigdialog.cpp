@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The Vsync developers
+// Copyright (c) 2017-2020 The Vsync developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
