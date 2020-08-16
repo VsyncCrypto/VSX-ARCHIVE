@@ -127,6 +127,7 @@ public:
         nTargetTimespan = 1 * 60; // Vsync: 1 minute
         nTargetSpacing = 1 * 60;  // Vsync: 1 minute
         nMaturity = 101;
+        nMinStakeValue = 500;
         nMaxMoneyOut = 10000000000 * COIN;
         /** Height or Time Based Activations **/
         nLastPOWBlock = 259200;
@@ -236,6 +237,7 @@ public:
         nTargetSpacing = 1 * 60;  // Vsync: 1 minute
         nLastPOWBlock = 200;
         nMaturity = 15;
+        nMinStakeValue = 500;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
