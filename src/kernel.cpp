@@ -303,7 +303,7 @@ bool CheckStakeKernelHash(unsigned int nBits, const CBlock blockFrom, CBlockInde
     if (nTimeBlockFrom + nStakeMinAge > nTimeTx) // Min age requirement
         return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d", nTimeBlockFrom, nStakeMinAge, nTimeTx);
 
-    if (pindex.nHeight >= 1434250) {
+    if (chainActive.Height() >= 1434250) {
         if (nValueIn < Params().MinStakeValue() * COIN)
             return error("CheckStakeKernelHash() : nValueIn is less than minimum stake value (value: %u, min: %u)", nValueIn / COIN, Params().MinStakeValue());
     }
@@ -406,7 +406,7 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake)
 
     unsigned int nInterval = 0;
     unsigned int nTime = block.nTime;
-    if (!CheckStakeKernelHash(block.nBits, blockprev, pindex, txPrev, txin.prevout, nTime, nInterval, true, hashProofOfStake, fDebug))
+    if (!CheckStakeKernelHash(block.nBits, blockprev, txPrev, txin.prevout, nTime, nInterval, true, hashProofOfStake, fDebug))
         return error("CheckProofOfStake() : INFO: check kernel failed on coinstake %s, hashProof=%s \n", tx.GetHash().ToString().c_str(), hashProofOfStake.ToString().c_str()); // may occur during initial download or if behind on block chain sync
 
     return true;
