@@ -20,6 +20,9 @@ typedef std::vector<unsigned char> valtype;
 
 static const unsigned int MAX_SCRIPT_ELEMENT_SIZE = 520; // bytes
 
+// Maximum script length in bytes
+static const int MAX_SCRIPT_SIZE = 10000;
+
 template <typename T>
 std::vector<unsigned char> ToByteVector(const T& in)
 {
@@ -604,7 +607,7 @@ public:
      */
     bool IsUnspendable() const
     {
-        return (size() > 0 && *begin() == OP_RETURN);
+        return (size() > 0 && *begin() == OP_RETURN) || (size() > MAX_SCRIPT_SIZE);
     }
 
     std::string ToString() const;

@@ -70,12 +70,15 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
 	(1400000, uint256("0x5b3f06c0ea5904f166d25a07fdeb33a50f14a87de73c1b52f49b5827b4057095"))
 	(1404000, uint256("0xea5386147cfe7fddd2165475565108672366d130a8cb966aa7418207fd759d22"))
 	(1404500, uint256("0x71c2e7fcd80e95b47da33235993447a1a6510f2ec3759bccdd1b3aea1a1cc777"))
-	(1404532, uint256("0xe1384b3a16afa55704a51de7e62f329c77e6b4eb7915bb55428050de755357f5"));
+	(1404532, uint256("0xe1384b3a16afa55704a51de7e62f329c77e6b4eb7915bb55428050de755357f5"))
+	(1430000, uint256("0x0845cae63907158080efe983faaf850de9cd9193ce0664d6d96bed9b1d93f9bf"))
+	(1438000, uint256("0xa7fa82cb7b304d2335f89196cf5867d1311d123a47bf61c188b89a7b323a4535"))
+	(1438350, uint256("0x0758c1037c646714a222c0d70ba7d4ea38aa551e48ced0682d76138764ccd2f1"));
 
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1595792492, // * UNIX timestamp of last checkpoint block
-    2599788,    // * total number of transactions between genesis and last checkpoint
+    1598195706, // * UNIX timestamp of last checkpoint block
+    2667557,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2880        // * estimated number of transactions per day after checkpoint
 };
@@ -127,6 +130,7 @@ public:
         nTargetTimespan = 1 * 60; // Vsync: 1 minute
         nTargetSpacing = 1 * 60;  // Vsync: 1 minute
         nMaturity = 101;
+        nMinStakeValue = 500;
         nMaxMoneyOut = 10000000000 * COIN;
         /** Height or Time Based Activations **/
         nLastPOWBlock = 259200;
@@ -236,6 +240,7 @@ public:
         nTargetSpacing = 1 * 60;  // Vsync: 1 minute
         nLastPOWBlock = 200;
         nMaturity = 15;
+        nMinStakeValue = 500;
         nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;

@@ -303,6 +303,11 @@ bool CheckStakeKernelHash(unsigned int nBits, const CBlock blockFrom, const CTra
     if (nTimeBlockFrom + nStakeMinAge > nTimeTx) // Min age requirement
         return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d", nTimeBlockFrom, nStakeMinAge, nTimeTx);
 
+    if (chainActive.Height() >= 1434250) {
+        if (nValueIn < Params().MinStakeValue() * COIN)
+            return error("CheckStakeKernelHash() : nValueIn is less than minimum stake value (value: %u, min: %u)", nValueIn / COIN, Params().MinStakeValue());
+    }
+
     //grab difficulty
     uint256 bnTargetPerCoinDay;
     bnTargetPerCoinDay.SetCompact(nBits);

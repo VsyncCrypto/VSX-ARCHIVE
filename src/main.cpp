@@ -2206,8 +2206,10 @@ int64_t GetBlockValue(int nHeight)
         nSubsidy = 11 * COIN;
     } else if (nHeight <= 1049999 && nHeight >= 648000) {
         nSubsidy = 3 * COIN;
-    } else if (nHeight >= 1050000) {
+    } else if (nHeight <= 1434249 && nHeight >= 1050000) {
         nSubsidy = 5 * COIN;
+    } else if (nHeight >= 1434250) {
+        nSubsidy = 10 * COIN;
     } else {
         nSubsidy = 0 * COIN;
     }
@@ -2235,32 +2237,10 @@ int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCou
         ret = blockValue * 0.76;
     } else if (nHeight > 1350000 && nHeight <= 1400000) {
         ret = blockValue * 0.77;
-    } else if (nHeight > 1400000 && nHeight <= 1450000) {
+    } else if (nHeight > 1400000 && nHeight <= 1434250) {
         ret = blockValue * 0.78;
-    } else if (nHeight > 1450000 && nHeight <= 1500000) {
-        ret = blockValue * 0.79;
-    } else if (nHeight > 1500000 && nHeight <= 1550000) {
-        ret = blockValue * 0.80;
-    } else if (nHeight > 1550000 && nHeight <= 1600000) {
-        ret = blockValue * 0.81;
-    } else if (nHeight > 1600000 && nHeight <= 1650000) {
-        ret = blockValue * 0.82;
-    } else if (nHeight > 1650000 && nHeight <= 1700000) {
-        ret = blockValue * 0.83;
-    } else if (nHeight > 1700000 && nHeight <= 1750000) {
-        ret = blockValue * 0.84;
-    } else if (nHeight > 1750000 && nHeight <= 1800000) {
-        ret = blockValue * 0.85;
-    } else if (nHeight > 1800000 && nHeight <= 1850000) {
-        ret = blockValue * 0.86;
-    } else if (nHeight > 1850000 && nHeight <= 1900000) {
-        ret = blockValue * 0.87;
-    } else if (nHeight > 1900000 && nHeight <= 1950000) {
-        ret = blockValue * 0.88;
-    } else if (nHeight > 1950000 && nHeight <= 2000000) {
-        ret = blockValue * 0.89;
-    } else if (nHeight > 2000000) {
-        ret = blockValue * 0.90; }
+    } else if (nHeight > 1434250) {
+        ret = blockValue * 0.40; }
 
     return ret;
 }
@@ -4504,7 +4484,11 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
 bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex* const pindexPrev, bool fCheckPOW, bool fCheckMerkleRoot)
 {
     AssertLockHeld(cs_main);
-    assert(pindexPrev == chainActive.Tip());
+    assert(pindexPrev);
+    if (pindexPrev != chainActive.Tip()) {
+        LogPrintf("%s : No longer working on chain tip\n", __func__);
+        return false;
+    }
 
     CCoinsViewCache viewNew(pcoinsTip);
     CBlockIndex indexDummy(block);
