@@ -46,5 +46,7 @@ More information at [vsync.io](http://www.vsync.io) Visit our ANN thread at [Bit
 <tr><td>Phase 7</td><td>518400-561599</td><td>27 VSX</td><td>30%/70% (8.1/18.9)</td><td>N/A</td></tr>
 <tr><td>Phase 8</td><td>561600-604799</td><td>19 VSX</td><td>30%/70% (5.7/13.3)</td><td>N/A</td></tr>
 <tr><td>Phase 9</td><td>604800-647999</td><td>11 VSX</td><td>30%/70% (3.3/7.7)</td><td>N/A</td></tr>
-<tr><td>Phase X</td><td>648000-Infinite</td><td>3 VSX</td><td>30%/70% (0.9/2.1)</td><td>N/A</td></tr>
+<tr><td>Phase 10</td><td>648000-1049999</td><td>3 VSX</td><td>30%/70% (0.9/2.1)</td><td>N/A</td></tr>
+<tr><td>Phase 11</td><td>1050000-1434249 </td><td>5 VSX</td><td>20%/80% (1/4)</td><td>N/A</td></tr>
+<tr><td>Phase 12</td><td>1434250-infinite</td><td>10 VSX</td><td>60%/40% (6/4)</td><td>N/A</td></tr>
 </table>
